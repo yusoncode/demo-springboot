@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: demo-springboot
+
+server:
+  port: 8080
+  servlet:
+    context-path: /demo-springboot-sit-yml
+
+management:
+  server:
+    port: 9080  # 管理端口和应用端口分开，生产环境在反向代理时不对外开放管理接口，直接被互联网访问的接口应做认证授权控制增强安全性。
+  endpoints:
+    web:
+      exposure:
+        include: 'prometheus'
+  metrics:
+    tags:
+      application: ${spring.application.name}

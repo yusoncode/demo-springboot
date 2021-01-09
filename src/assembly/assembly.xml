@@ -1,0 +1,44 @@
+<assembly>
+    <!-- pom.xml中定义一个默认属性<BUILD_NUMBER>b1</BUILD_NUMBER>, jenkins构建时自动注入每次job运行的构建号, 以便区分每次构建的制品 -->
+    <id>${BUILD_NUMBER}</id>
+
+    <!-- 打包成tar.gz制品包 -->
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <!-- 启动脚本放至在bin目录，并设置文件mode为755 -->
+        <fileSet>
+            <directory>${basedir}/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+        </fileSet>
+        <!-- 启动脚本的README文件放至在bin目录 -->
+        <fileSet>
+            <directory>${basedir}/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <includes>
+                <include>README</include>
+            </includes>
+        </fileSet>
+
+        <!-- 配置文件目录config将被放至制品包的config目录 -->
+        <fileSet>
+            <directory>${basedir}/src/main/resources/config/</directory>
+            <outputDirectory>config</outputDirectory>
+        </fileSet>
+
+        <!-- 应用程序将被放至lib目录 -->
+        <fileSet>
+            <directory>${basedir}/target</directory>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
